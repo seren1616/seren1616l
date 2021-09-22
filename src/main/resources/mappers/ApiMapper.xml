@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.api.mapper.ApiMapper">
+
+<insert id="insertAdinfo" parameterType="Map">
+INSERT INTO user_mst (userId,userPw,eMail) 
+VALUES (#{userId},#{userPw},#{eMail})
+</insert>
+
+<insert id="insertStoreInfoMst" parameterType="Map">
+insert into storeinfo_mst (store_seq, store_name,use_yn)
+values (date_format(now(),'%Y%m%d%h%i%s'), #{storeName},'Y')
+</insert>
+
+<select id='countExistId' parameterType="String" resultType="int">
+
+select count(*) 
+from user_mst
+where userId=#{userId}
+
+</select>
+
+</mapper>

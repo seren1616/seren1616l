@@ -1,0 +1,30 @@
+.popup-layer {
+  display: block;
+  position: absolute;
+  top: 50%;
+  width: 30%;
+  height: 20%;
+  background-color: white;
+  border: 3px solid black;
+  z-index: 2;
+}
+.dim-layer {
+  display: block;
+  position: fixed;
+  _position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.dim-layer .dimBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
