@@ -1,7 +1,7 @@
 OverView description : React(front-end)+spring(back-end) web pjt
 
 folder description : 
- - my-app/ : front-end using react source code folder
+ - boiler-plate : front-end using react source code folder
  - src/ : back-end using Springboot source code folder
 
 API documents : http://localhost:8080/swagger-ui.html#/ 
