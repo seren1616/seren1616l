@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../../_actions/user_action";
+import { withRouter } from "react-router-dom";
 
 function LoginPage(props) {
   const dispatch = useDispatch();
@@ -23,13 +24,21 @@ function LoginPage(props) {
     //이걸 안하면 refresh되어서 아래의 해야할 일의 코드가 실행되지 않는다.
     e.preventDefault();
     let body = { email: Email, password: Password };
-    Axios.get("http://localhost:9000/login/test").then(console.log("response"));
-    //디스패치를 이용해서 액션을 취할 것
+    // Axios.get("http://localhost:9000/login/test").then(console.log("response"));
+    // //디스패치를 이용해서 액션을 취할 것
+    // dispatch(loginUser(body)).then(response => {
+    //   if (response.payload.loginSuccess) {
+    //     props.history.push("/");
+    //   } else {
+    //     alert("error");
+    //   }
+    // });
+
     dispatch(loginUser(body)).then(response => {
       if (response.payload.loginSuccess) {
         props.history.push("/");
       } else {
-        alert("error");
+        alert("err0r");
       }
     });
   };
@@ -38,10 +47,16 @@ function LoginPage(props) {
     <div
       style={{
         display: "flex",
-        flexDirection: "column"
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100vh"
       }}
     >
-      <form onSubmit={onSubmitHandler}>
+      <form
+        style={{ display: "flex", flexDirection: "column" }}
+        onSubmit={onSubmitHandler}
+      >
         <label>email</label>
         <input type="email" value={Email} onChange={emailHandler} />
         <label>password</label>
@@ -53,4 +68,4 @@ function LoginPage(props) {
   );
 }
 
-export default LoginPage;
+export default withRouter(LoginPage);

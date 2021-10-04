@@ -15,7 +15,22 @@ function LadingPage() {
         height: "100vh"
       }}
     >
-      <h2>시작 페이지</h2>
+      <div>
+        <h2>
+          landing page
+          <h4>router infomation</h4>
+        </h2>
+
+        <ul>
+          lading page : <a href="localhost:3000">localhost:3000</a>
+        </ul>
+        <ul>
+          login page : <a href="/login">localhost:3000/login</a>
+        </ul>
+        <ul>
+          회원가입 : <a href="/register">localhost:3000/register</a>
+        </ul>
+      </div>
     </div>
   );
 }
