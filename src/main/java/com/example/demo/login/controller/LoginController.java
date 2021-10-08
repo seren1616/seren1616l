@@ -21,7 +21,7 @@ import com.example.demo.login.service.LoginService;
 import com.example.demo.login.vo.LoginVo;
 
 
-//@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class LoginController {
 
@@ -93,16 +93,5 @@ public class LoginController {
 		
 		return mv;
 	}
-	@PostMapping("/login/test")
-	public String loginTest()
-	{
-		System.out.println("tttttttttttttttttlogintesttttttttttttttttttt");
-		return "good";
-	}
-	@GetMapping("/login/test")
-	public String loginTest2()
-	{
-		System.out.println("tttttttttttttttttlogintesttttttttttttttttttt");
-		return "good";
-	}
+
 }
