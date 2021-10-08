@@ -92,16 +92,5 @@ public class LoginController {
 		
 		return mv;
 	}
-	@PostMapping("/login/test")
-	public String loginTest()
-	{
-		System.out.println("tttttttttttttttttlogintesttttttttttttttttttt");
-		return "good";
-	}
-	@GetMapping("/login/test")
-	public String loginTest2()
-	{
-		System.out.println("tttttttttttttttttlogintesttttttttttttttttttt");
-		return "good";
-	}
+
 }

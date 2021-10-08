@@ -18,8 +18,12 @@ export function loginUser(dataToSubmit) {
 }
 
 export function registUser(dataToSubmit) {
+  // const resultFromAxios = axios
+  //   .post("/api/users/register", dataToSubmit)
+  //   .then(response => response.data);
+
   const resultFromAxios = axios
-    .post("/api/users/register", dataToSubmit)
+    .post("/server/checkValidUser", dataToSubmit)
     .then(response => response.data);
 
   //다음에 reducer으로 return 해줘야한다.

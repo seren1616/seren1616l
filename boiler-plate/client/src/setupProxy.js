@@ -9,4 +9,12 @@ module.exports = function(app) {
       //target: "http://localhost:9000", go to spring boot server
     })
   );
+  app.use(
+    "/server",
+    createProxyMiddleware({
+      target: "http://localhost:9000",
+      changeOrigin: true,
+      ws: true
+    })
+  );
 };
