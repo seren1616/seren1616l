@@ -23,7 +23,26 @@ function LoginPage(props) {
     //이걸 안하면 refresh되어서 아래의 해야할 일의 코드가 실행되지 않는다.
     e.preventDefault();
     let body = { email: Email, password: Password };
-    Axios.get("http://localhost:9000/login/test").then(console.log("response"));
+
+    // Axios.get("http://localhost:9000/login/test").then(res => {
+    //   console.log(res.data);
+    // });
+
+    const api = Axios.create({ baseURL: "http://localhost:9000" });
+    api
+      .post("/server/checkValidUser", null, {
+        params: {
+          userId: "ryula",
+          userPw: "aa"
+        }
+      })
+      .then(response => {
+        console.log("from spring boot : " + response.status);
+      })
+      .catch(err => {
+        console.log("err from springboot" + err);
+      });
+
     //디스패치를 이용해서 액션을 취할 것
     dispatch(loginUser(body)).then(response => {
       if (response.payload.loginSuccess) {
