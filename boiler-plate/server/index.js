@@ -95,7 +95,7 @@ app.post("/api/users/login", (req, res) => {
   });
 });
 
-app.get("/app/users/auth", auth, (req, res) => {
+app.get("/api/users/auth", auth, (req, res) => {
   //auth라는 미들웨어는, end point인 /app/users/auth 에서
   //callback (req,res) 하기 전에 중간에 실행하는 것
   //여기까지 미들웨어를 통과해서 왔다는 얘기는

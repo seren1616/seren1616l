@@ -36,7 +36,9 @@ function LoginPage(props) {
 
     dispatch(loginUser(body)).then(response => {
       if (response.payload.loginSuccess) {
+        alert("반갑습니다!");
         props.history.push("/");
+        console.log(response.payload);
       } else {
         alert("err0r");
       }

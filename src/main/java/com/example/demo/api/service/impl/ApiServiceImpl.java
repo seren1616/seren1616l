@@ -28,6 +28,7 @@ public class ApiServiceImpl implements ApiService{
 	
 	public int countExistId(String userId) 
 	{
+		System.out.println("¾Æ³ö");
 		int cnt=apiMapper.countExistId(userId);
 		return cnt;
 	}

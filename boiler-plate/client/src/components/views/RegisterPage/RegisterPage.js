@@ -28,6 +28,7 @@ function RegisterPage(props) {
 
     dispatch(registUser(body)).then(res => {
       if (res.payload.success) {
+        alert("회원가입에 성공하였습니다!");
         props.history.push("/");
       } else {
         alert("failed regist user");
@@ -49,6 +50,7 @@ function RegisterPage(props) {
         style={{ display: "flex", flexDirection: "column" }}
         onSubmit={submitHandler}
       >
+        <h2>회원가입(mongo DB)</h2>
         <label>name</label>
         <input type="text" value={Name} onChange={nameHandler} />
         <label>email</label>
@@ -56,7 +58,7 @@ function RegisterPage(props) {
         <label>password</label>
         <input type="password" value={Password} onChange={passwordHandler} />
         <br />
-        <button type="submit">login</button>
+        <button type="submit">회원가입</button>
       </form>
     </div>
   );

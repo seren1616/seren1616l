@@ -4,9 +4,8 @@ module.exports = function(app) {
     "/api",
     createProxyMiddleware({
       target: "http://localhost:5000",
-      changeOrigin: true
-      //ws: true
-      //target: "http://localhost:9000", go to spring boot server
+      changeOrigin: true,
+      ws: true
     })
   );
   app.use(

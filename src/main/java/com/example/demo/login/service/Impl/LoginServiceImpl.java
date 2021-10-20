@@ -18,12 +18,14 @@ public class LoginServiceImpl implements LoginService {
 	
 	public List<?> selectAllInfo() throws Exception
 	{
+		System.out.println("why!?");
 		List<?> list=loginMapper.selectAllInfo();
 		return list;
 	}
 	
 	public Map<?,?> selectInfo(String userId,String userPw) throws Exception
 	{
+		System.out.println("why!?");
 		Map<?,?> map=loginMapper.selectInfo(userId,userPw);
 		return map;
 	}
