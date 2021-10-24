@@ -50,12 +50,12 @@ function RegisterPage(props) {
         style={{ display: "flex", flexDirection: "column" }}
         onSubmit={submitHandler}
       >
-        <h2>회원가입(mongo DB)</h2>
-        <label>name</label>
+        <h2>Sign Up</h2>
+        <label>name(*)</label>
         <input type="text" value={Name} onChange={nameHandler} />
-        <label>email</label>
+        <label>email(*)</label>
         <input type="email" value={Email} onChange={emailHandler} />
-        <label>password</label>
+        <label>password(*)</label>
         <input type="password" value={Password} onChange={passwordHandler} />
         <br />
         <button type="submit">회원가입</button>

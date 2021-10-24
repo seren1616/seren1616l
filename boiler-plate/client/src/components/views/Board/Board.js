@@ -42,22 +42,33 @@ function Board(props) {
     //   }
     // });
     e.preventDefault();
-    const api = axios.create({ baseURL: "http://localhost:9000" });
-    api
-      .post("/server/board/insert", null, {
-        params: {
-          userId: "seren",
-          title: Title,
-          contents: Contents,
-          isSecret: isSecret,
-          password: Password
-        }
-      })
-      .then(response => {
-        alert("successfully uploaded ( " + response.status + ")" + Title);
+
+    //corps
+    // const api = axios.create({ baseURL: "http://localhost:9000" });
+    // api
+    //   .post("/server/board/insert", null, {
+    //     params: {
+    //       userId: "seren",
+    //       title: Title,
+    //       contents: Contents,
+    //       isSecret: isSecret,
+    //       password: Password
+    //     }
+    //   })
+    //   .then(response => {
+    //     alert("successfully uploaded ( " + response.status + ")" + Title);
+    //   })
+    //   .catch(err => {
+    //     alert("err from springboot" + err);
+    //   });
+
+    axios
+      .get("/api/board/hello")
+      .then(res => {
+        console.log("res from board modules" + res.data.msg);
       })
       .catch(err => {
-        alert("err from springboot" + err);
+        alert("err from board modeuls" + err);
       });
   };
 

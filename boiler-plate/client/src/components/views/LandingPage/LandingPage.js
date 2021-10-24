@@ -18,7 +18,8 @@ function LadingPage(props) {
   };
 
   return (
-    <div
+    /* v1 bolier-plate*/
+    /*<div
       style={{
         display: "flex",
         justifyContent: "center",
@@ -45,6 +46,8 @@ function LadingPage(props) {
       </div>
       <button onClick={onClickHandler}>log Out</button>
     </div>
+    */
+    <div></div>
   );
 }
 

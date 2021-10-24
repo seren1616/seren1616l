@@ -1,7 +1,24 @@
 import React from "react";
+import { Icon } from "antd";
 
 function Footer() {
-  return <div>모든 저작권은 seren1616@naver.com에 있습니다.</div>;
+  return (
+    <div
+      style={{
+        height: "80px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: "1rem"
+      }}
+    >
+      <p>
+        {" "}
+        seren <Icon type="smile" />
+      </p>
+    </div>
+  );
 }
 
 export default Footer;
