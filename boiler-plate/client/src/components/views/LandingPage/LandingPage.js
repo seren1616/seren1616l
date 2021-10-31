@@ -5,12 +5,22 @@ import { Icon, Col, Card, Row, Carousel } from "antd";
 import Meta from "antd/lib/card/Meta";
 import ImageSlider from "../../utils/ImageSlider";
 import { set } from "mongoose";
+import CheckBox from "./Sections/CheckBox";
+import { continents, price } from "./Sections/Datas";
+import RadioBox from "./Sections/RadioBox";
+import SearchFeature from "./Sections/SearchFeature";
 
 function LadingPage(props) {
   const [Products, setProducts] = useState([]);
   const [Skip, setSkip] = useState(0);
   const [Limit, setLimit] = useState(2);
   const [PostSize, setPostSize] = useState(0);
+  const [Filters, setFilters] = useState({
+    continents: [],
+    price: []
+  });
+
+  const [SearchTerm, setSearchTerm] = useState();
 
   useEffect(() => {
     let body = {
@@ -68,37 +78,52 @@ function LadingPage(props) {
       </Col>
     );
   });
+  const showFilteredResults = filters => {
+    let body = {
+      skip: 0,
+      limit: Limit,
+      filters: filters
+    };
+    getProducts(body);
+    setSkip(0);
+  };
+  const handlePrice = value => {
+    const data = price;
+    let array = [];
+    //여기에서 말하는 key는 price의 필드값이 아니라 자체적으로(내장) 가지는 index
+    for (let key in data) {
+      if (data[key]._id === parseInt(value, 10)) {
+        array = data[key].array;
+      }
+    }
+    return array;
+  };
+  const handleFilters = (filters, category) => {
+    const newFilters = { ...Filters };
+    //전달받은 category(=continents)에 filters의 값으로 업데이트 하는 것이다
+    console.log("filters", filters);
+    newFilters[category] = filters;
+    if (category === "price") {
+      let priceValues = handlePrice(filters);
+      newFilters[category] = priceValues;
+    }
 
+    showFilteredResults(newFilters);
+    setFilters(newFilters);
+  };
+  const updateSearchTerm = value => {
+    console.log("update search Term : ", value);
+    let body = {
+      skip: 0,
+      limit: Limit,
+      filters: Filters,
+      searchTerm: value
+    };
+    setSkip(0);
+    setSearchTerm(value);
+    getProducts(body);
+  };
   return (
-    /* v1 bolier-plate*/
-    /*<div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100%",
-        height: "100vh"
-      }}
-    >
-      <div>
-        <h2>
-          landing page
-          <h4>router infomation</h4>
-        </h2>
-
-        <ul>
-          lading page : <a href="localhost:3000">localhost:3000</a>
-        </ul>
-        <ul>
-          login page : <a href="/login">localhost:3000/login</a>
-        </ul>
-        <ul>
-          회원가입 : <a href="/register">localhost:3000/register</a>
-        </ul>
-      </div>
-      <button onClick={onClickHandler}>log Out</button>
-    </div>
-    */
     <div style={{ width: "75%", margin: "3rem auto" }}>
       <div style={{ textAlign: "center" }}>
         <h2>
@@ -106,6 +131,35 @@ function LadingPage(props) {
           {PostSize - Products.length}
         </h2>
       </div>
+      {/*Filter*/}
+
+      <Row gutter={[16, 16]}>
+        <Col lg={12} xs={24}>
+          {/*Check Box continents들을 checkbox로 내려준다*/}
+          <CheckBox
+            list={continents}
+            handleFilters={filters => handleFilters(filters, "continents")}
+          />
+        </Col>
+        <Col lg={12} xs={24}>
+          {/*Radio Box*/}
+          <RadioBox
+            list={price}
+            handleFilters={filters => handleFilters(filters, "price")}
+          />
+        </Col>
+      </Row>
+      {/*Search*/}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          margin: "1rem auto"
+        }}
+      >
+        <SearchFeature refreshFunction={newVal => updateSearchTerm(newVal)} />
+      </div>
+      {/*Cards*/}
       <Row gutter={(16, 16)}>{renderCards}</Row>
       <br />
 

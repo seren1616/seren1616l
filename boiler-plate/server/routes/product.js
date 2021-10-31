@@ -50,20 +50,61 @@ router.post("/products", (req, res) => {
   //product collection에 들어있는 모든 상품 정보를 가져오기
   let limit = req.body.limit ? parseInt(req.body.limit) : 16;
   let skip = req.body.skip ? parseInt(req.body.skip) : 0;
-  Product.find()
-    .populate("writer")
-    .skip(skip)
-    .limit(limit)
-    .exec((err, productsInfo) => {
-      console.log("len:" + productsInfo.length);
-      if (err) return res.status(400).json({ success: false, err });
-      else
-        return res.status(200).json({
-          success: true,
-          productsInfo,
-          postSize: parseInt(productsInfo.length)
-        });
-    });
+  let term = req.body.searchTerm;
+
+  let findArgs = {};
+  console.log("1. req.body.filters : ", req.body.filters);
+
+  for (let key in req.body.filters) {
+    console.log("2. key : ", key);
+    if (req.body.filters[key].length > 0) {
+      if (key === "price") {
+        findArgs[key] = {
+          //greater than equal
+          $gte: req.body.filters[key][0],
+          //less than equal
+          $lte: req.body.filters[key][1]
+        };
+      } else {
+        findArgs[key] = req.body.filters[key];
+      }
+    }
+  }
+
+  console.log("findArgs", findArgs);
+  console.log("search Term", term);
+  if (term) {
+    Product.find(findArgs)
+      .find({ $text: { $search: term } })
+      .populate("writer")
+      .skip(skip)
+      .limit(limit)
+      .exec((err, productsInfo) => {
+        console.log("len:" + productsInfo.length);
+        if (err) return res.status(400).json({ success: false, err });
+        else
+          return res.status(200).json({
+            success: true,
+            productsInfo,
+            postSize: parseInt(productsInfo.length)
+          });
+      });
+  } else {
+    Product.find(findArgs)
+      .populate("writer")
+      .skip(skip)
+      .limit(limit)
+      .exec((err, productsInfo) => {
+        console.log("len:" + productsInfo.length);
+        if (err) return res.status(400).json({ success: false, err });
+        else
+          return res.status(200).json({
+            success: true,
+            productsInfo,
+            postSize: parseInt(productsInfo.length)
+          });
+      });
+  }
 });
 
 module.exports = router;

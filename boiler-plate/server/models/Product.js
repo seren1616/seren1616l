@@ -40,13 +40,14 @@ const productSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
-
+//search 값에 대한 옵션 설정 ($text:)
 productSchema.index(
   {
     title: "text",
     description: "text"
   },
   {
+    //중요도 옵션이다. title이 description보다 5배로 중요도 부여
     weights: {
       title: 5,
       description: 1

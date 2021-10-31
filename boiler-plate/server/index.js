@@ -50,4 +50,4 @@ app.get("/api/hello/", (req, res) => {
   return res.json({ successMsg: "안녕하세요!!!" });
 });
 
-app.listen(port, () => console.log("Example App listening port ${port}"));
+app.listen(port, () => console.log(`server App listening port : ${port}`));
