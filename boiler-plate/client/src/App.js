@@ -10,7 +10,7 @@ import NavBar from "./components/views/NavBar/NavBar";
 import Footer from "./components/views/Footer/Footer";
 import { Suspense } from "react";
 import UploadProductPage from "./components/views/UploadProductPage/UploadProductPage";
-
+import DetailProductPage from "./components/views/DetailProductPage/DetailProductPage";
 function App() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -43,6 +43,11 @@ function App() {
               exact
               path="/product/upload"
               component={Auth(UploadProductPage, "/product/upload")}
+            />
+            <Route
+              exact
+              path="/product/:productId"
+              component={DetailProductPage}
             />
           </Switch>
         </Router>

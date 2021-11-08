@@ -5,6 +5,7 @@ const { Product } = require("../models/Product");
 const bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
+const qs = require("querystring");
 
 //2. function을 이용해서 새로운 express app을 만들고
 const storage = multer.diskStorage({
@@ -105,6 +106,20 @@ router.post("/products", (req, res) => {
           });
       });
   }
+});
+
+router.get("/products_by_id", (req, res) => {
+  //product id를 이용해서 DB에서 product id와 같은 상품의 정보를 가져온다.
+  //쿼리를 이용해서 값을 가져올때는
+  console.log("/products_by_id", qs.escape(req.query.id));
+  let type = qs.escape(req.query.type);
+  let productId = qs.escape(req.query.id);
+  Product.find({ _id: productId })
+    .populate("writer")
+    .exec((err, product) => {
+      if (err) return res.status(400).send(err);
+      return res.status(200).send({ success: true, product });
+    });
 });
 
 module.exports = router;
