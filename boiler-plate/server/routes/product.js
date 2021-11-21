@@ -113,8 +113,16 @@ router.get("/products_by_id", (req, res) => {
   //쿼리를 이용해서 값을 가져올때는
   console.log("/products_by_id", qs.escape(req.query.id));
   let type = qs.escape(req.query.type);
-  let productId = qs.escape(req.query.id);
-  Product.find({ _id: productId })
+  let productIds = qs.escape(req.query.id);
+
+  if (type === "array") {
+    //id=123,12345,454,23로 온 걸 productIds=['123','12345','454','23']으로 만들어줘야한다.
+    let ids = req.query.id.split(",");
+    productIds = ids.map(item => {
+      return item;
+    });
+  }
+  Product.find({ _id: { $in: productIds } })
     .populate("writer")
     .exec((err, product) => {
       if (err) return res.status(400).send(err);

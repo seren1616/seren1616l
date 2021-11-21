@@ -8,6 +8,7 @@ import boardComponent from "./components/views/Board/Board";
 import Auth from "./hoc/auth";
 import NavBar from "./components/views/NavBar/NavBar";
 import Footer from "./components/views/Footer/Footer";
+import CartPage from "./../src/components/views/CartPage/CartPage";
 import { Suspense } from "react";
 import UploadProductPage from "./components/views/UploadProductPage/UploadProductPage";
 import DetailProductPage from "./components/views/DetailProductPage/DetailProductPage";
@@ -48,6 +49,11 @@ function App() {
               exact
               path="/product/:productId"
               component={DetailProductPage}
+            />
+            <Route
+              excat
+              path="/user/cart"
+              component={Auth(CartPage, "/user/cart")}
             />
           </Switch>
         </Router>

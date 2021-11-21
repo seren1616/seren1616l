@@ -11,7 +11,13 @@ export default function(SpecificComponent, link, option, adminRoute = null) {
   function AthenticationCheck(props) {
     let user = useSelector(state => state.user);
     const newUserPage = ["/", "/login", "/register"];
-    const loginUserPage = ["/", "/tags", "/board", "/product/upload"];
+    const loginUserPage = [
+      "/",
+      "/tags",
+      "/board",
+      "/product/upload",
+      "/user/cart"
+    ];
     const dispatch = useDispatch();
     useEffect(() => {
       dispatch(auth()).then(res => {

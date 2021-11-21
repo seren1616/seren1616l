@@ -1,5 +1,12 @@
 import axios from "axios";
-import { LOGIN_USER, REGIST_USER, AUTH_USER } from "./types";
+import { USER_SERVER } from "../Config";
+import {
+  LOGIN_USER,
+  REGIST_USER,
+  AUTH_USER,
+  ADD_TO_CART,
+  GET_CART_ITEMS
+} from "./types";
 export function loginUser(dataToSubmit) {
   //서버에서 axios 로 보낸 요청에 대한 응답값{response.data}을 request에 넣는다
   const request = axios
@@ -45,4 +52,37 @@ export function auth() {
     //모든 데이터를 담은 request가 payload에 담기고, reducer에서 해당 action의 payload를 이용한다
     payload: request
   };
+}
+
+export function addToCart(id) {
+  let body = {
+    productId: id
+  };
+  const request = axios
+    .post(`${USER_SERVER}/addToCart`, body)
+    .then(response => response.data);
+  //결국 payload는 request의 응답값(response.data)가 된다
+  return { type: ADD_TO_CART, payload: request };
+}
+
+export function getCartItem(cartItems, userCart) {
+  // let body = { productId: id };
+  const request = axios
+    .get(`/api/product/products_by_id?id=${cartItems}&type=array`)
+    .then(
+      //카트아이템에 있는 내용물들의 정보를
+      //product collection에서 가져온 뒤
+      //카트아이템의 갯수랑 같이 묶어준다
+      res => {
+        userCart.forEach(cartItems => {
+          res.data.forEach((productDetail, index) => {
+            if (cartItems.id === productDetail._id) {
+              res.data[index].quantity = cartItems.quantity;
+            }
+          });
+        });
+        return res.data;
+      }
+    );
+  return { type: GET_CART_ITEMS, payload: request };
 }

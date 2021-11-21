@@ -18,7 +18,7 @@ function DetailProductPage(props) {
           alert("상세 정보 가져오기를 실패했습니다.");
         }
       });
-  });
+  }, []);
   return (
     <div style={{ width: "100%", padding: "3rem 4rem" }}>
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -30,7 +30,7 @@ function DetailProductPage(props) {
           <ProductImage detail={Product} />
         </Col>
         <Col lg={12} sm={24}>
-          <ProductInfo />
+          <ProductInfo detail={Product} />
         </Col>
       </Row>
     </div>
